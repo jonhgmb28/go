@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bruno - Menú</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #898e17;
+            --primary-dark: #6b7011;
+            --secondary-color: #ffeb3b;
+            --accent-color: #ff6b35;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --background-light: #f8f9fa;
+            --white: #ffffff;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+            --shadow-heavy: rgba(0, 0, 0, 0.25);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f2e8 0%, #e8e2d5 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(137, 142, 23, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 235, 59, 0.08) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--text-dark);
+            padding: 30px;
+            border-radius: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 40px var(--shadow-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(137, 142, 23, 0.05), transparent);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #ffc107 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(255, 235, 59, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo-text {
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-info {
+            text-align: center;
+            background: rgba(137, 142, 23, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-info div {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .phone {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-menu {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .menu-option {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px var(--shadow-light);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            min-width: 320px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .menu-option:hover::before {
+            left: 100%;
+        }
+
+        .menu-option:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px var(--shadow-medium);
+        }
+
+        .menu-option.active {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .menu-option h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .menu-option p {
+            font-size: 16px;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .menu-section {
+            display: none;
+            animation: slideIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .menu-section.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        .menu-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .category {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 0;
+            box-shadow: 0 15px 35px var(--shadow-light);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px var(--shadow-medium);
+        }
+
+        .category h3 {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px;
+            font-size: 22px;
+            text-align: center;
+            font-weight: 600;
+            margin: 0;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .category h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-color);
+            border-radius: 3px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: rgba(137, 142, 23, 0.05);
+            transform: translateX(5px);
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #ffc107 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: var(--primary-color);
+            box-shadow: 0 8px 25px rgba(255, 235, 59, 0.3);
+            flex-shrink: 0;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .item-description {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .item-price {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 5px 15px rgba(137, 142, 23, 0.3);
+            flex-shrink: 0;
+        }
+
+        .payment-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 20px 40px var(--shadow-light);
+            margin-top: 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 107, 53, 0.05), transparent);
+            animation: rotate 15s linear infinite reverse;
+        }
+
+        .payment-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .payment-info {
+            background: rgba(137, 142, 23, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid rgba(137, 142, 23, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .payment-detail {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .payment-detail:last-child {
+            margin-bottom: 0;
+        }
+
+        .payment-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 16px;
+        }
+
+        .payment-value {
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 2px solid rgba(137, 142, 23, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-value:hover {
+            background: var(--secondary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(137, 142, 23, 0.3);
+        }
+
+        .notification {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            z-index: 1000;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 10px 30px var(--shadow-medium);
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .main-menu {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .menu-option {
+                min-width: auto;
+                padding: 30px;
+            }
+
+            .menu-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-detail {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .payment-value {
+                text-align: center;
+            }
+        }
+
+        /* Animaciones adicionales */
+        .category {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .category:nth-child(1) { animation-delay: 0.1s; }
+        .category:nth-child(2) { animation-delay: 0.2s; }
+        .category:nth-child(3) { animation-delay: 0.3s; }
+        .category:nth-child(4) { animation-delay: 0.4s; }
+        .category:nth-child(5) { animation-delay: 0.5s; }
+        .category:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <div class="contact-info">
+                    <div class="phone">🍳 Buba Bruno Desayunos</div>
+                </div>
+                <div class="logo">
+                    <div class="logo-circle"><img src="logo bruno.png" alt="" style="width: 100px; height: 100px; border-radius: 50%;"></div>
+                    <div class="logo-text">BRUNO</div>
+                </div>
+                <div class="contact-info">
+                    <div>🕐 Horario: 8:00 AM - 4:00 PM</div>
+                    <div>📅 Lunes, Miércoles, Jueves, Viernes</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-menu">
+            <div class="menu-option active" onclick="showSection('desayunos')">
+                <h2>🍳 DESAYUNOS</h2>
+                <p>Deliciosos desayunos para comenzar tu día</p>
+            </div>
+            <div class="menu-option" onclick="showSection('snacks')">
+                <h2>💳 PAGOS</h2>
+                <p>Información para transferencias bancarias</p>
+            </div>
+        </div>
+
+        <div id="desayunos" class="menu-section active">
+            <div class="menu-categories">
+                <div class="category">
+                    <h3>🌶️ Chilaquiles</h3>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="207-chilaquiles-verdes.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Sencillos</div>
+                            <div class="item-description">Incluye café de olla y pan</div>
+                        </div>
+                        <div class="item-price">$45.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="15.-Chilaquiles-verdes-con-huevo-300x225.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Con Huevo</div>
+                            <div class="item-description">Incluye café de olla y pan</div>
+                        </div>
+                        <div class="item-price">$55.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="chilaquiles-verdes-con-pollo-foto-principal.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Con Pollo</div>
+                            <div class="item-description">Incluye café de olla y pan</div>
+                        </div>
+                        <div class="item-price">$70.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="unnamed.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Con Bistec</div>
+                            <div class="item-description">Incluye café de olla y pan</div>
+                        </div>
+                        <div class="item-price">$75.00</div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>🌯 Enchiladas</h3>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="Huevos-Rancheros-Enchiladas.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Con Huevo</div>
+                            <div class="item-description">Incluye café de olla y pan</div>
+                        </div>
+                        <div class="item-price">$70.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="b13978f1-38a8-43a2-8969-d5ff091efe70.avif" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Con Pollo</div>
+                            <div class="item-description">Incluye café de olla y pan</div>
+                        </div>
+                        <div class="item-price">$75.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="sddefault.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Con Bistec</div>
+                            <div class="item-description">Incluye café de olla y pan</div>
+                        </div>
+                        <div class="item-price">$80.00</div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>🫘 Enfrijoladas</h3>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="enfri-huevo.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Con Huevo</div>
+                            <div class="item-description">Incluye café de olla y pan</div>
+                        </div>
+                        <div class="item-price">$70.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="2-6.png" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Con Pollo</div>
+                            <div class="item-description">Incluye café de olla y pan</div>
+                        </div>
+                        <div class="item-price">$75.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="hq720.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Con Bistec</div>
+                            <div class="item-description">Incluye café de olla y pan</div>
+                        </div>
+                        <div class="item-price">$80.00</div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>🥖 Molletes</h3>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="a1.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Sencillos</div>
+                            <div class="item-description">Dos molletes con frijoles, queso, pico de gallo y café</div>
+                        </div>
+                        <div class="item-price">$55.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="a2.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Con Jamón</div>
+                            <div class="item-description">Dos molletes con frijoles, queso, jamón, pico de gallo y café</div>
+                        </div>
+                        <div class="item-price">$60.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="a3.avif" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Con Pollo</div>
+                            <div class="item-description">Dos molletes con frijoles, queso, pollo, pico de gallo y café</div>
+                        </div>
+                        <div class="item-price">$65.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="a4.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Con Chorizo</div>
+                            <div class="item-description">Dos molletes con frijoles, queso, chorizo, pico de gallo y café</div>
+                        </div>
+                        <div class="item-price">$65.00</div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>🥪 Sandwiches</h3>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="a5.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Sencillo</div>
+                            <div class="item-description">Con lechuga, jitomate, jamón, queso y mayonesa</div>
+                        </div>
+                        <div class="item-price">$30.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="a6.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Club Sandwich</div>
+                            <div class="item-description">Con lechuga, jitomate, jamón, tocino, pollo, mayonesa y papas</div>
+                        </div>
+                        <div class="item-price">$50.00</div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>🥞 Hotcakes</h3>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="a7.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Hotcakes</div>
+                            <div class="item-description">2 hotcakes esponjosos</div>
+                        </div>
+                        <div class="item-price">$50.00</div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>🍳 Huevos al Gusto</h3>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="a8.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Huevos al Gusto</div>
+                            <div class="item-description">Incluye café de olla y pan</div>
+                        </div>
+                        <div class="item-price">$55.00</div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>🧀 Sincronizadas</h3>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="a9.webp" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Sincronizada</div>
+                            <div class="item-description">Jamón y queso Oaxaca, café de olla y pico de gallo</div>
+                        </div>
+                        <div class="item-price">$60.00</div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>🥖 Torta de Chilaquiles</h3>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="a10.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Sencilla</div>
+                            <div class="item-description">Incluye café de olla</div>
+                        </div>
+                        <div class="item-price">$35.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="a11.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Con Pollo</div>
+                            <div class="item-description">Incluye café de olla</div>
+                        </div>
+                        <div class="item-price">$45.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="a12.jpg" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Con Huevo</div>
+                            <div class="item-description">Incluye café de olla</div>
+                        </div>
+                        <div class="item-price">$45.00</div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>🥤 Bebidas</h3>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="a13.webp" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Café o Té</div>
+                            <div class="item-description">Caliente y recién preparado</div>
+                        </div>
+                        <div class="item-price">$20.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image"><img src="a14.webp" alt="" style="width: 70px; height: 70px; border-radius: 20px;"></div>
+                        <div class="item-info">
+                            <div class="item-name">Licuados</div>
+                            <div class="item-description">Fresa, chocolate y plátano (vaso medio)</div>
+                        </div>
+                        <div class="item-price">$25.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="snacks" class="menu-section">
+            <div class="payment-section">
+                <h2>💳 Información de Pago</h2>
+                <div class="payment-info">
+                    <div class="payment-detail">
+                        <span class="payment-label">🏦 Banco:</span>
+                        <span class="payment-value" onclick="copyToClipboard('Bruno Hernández García')">Bruno Hernández García</span>
+                        <span class="payment-value" onclick="copyToClipboard('BBVA Bancomer')">BBVA Bancomer</span>
+                    </div>
+                    <div class="payment-detail">
+                        <span class="payment-label">🔢 Cuenta CLABE:</span>
+                        <span class="payment-value" onclick="copyToClipboard('012180001234567890')">012180001234567890</span>
+                    </div>
+                    <div class="payment-detail">
+                        <span class="payment-label">👤 Beneficiario:</span>
+                        <span class="payment-value" onclick="copyToClipboard('Monica')">Monica</span>
+                    </div>
+                </div>
+                <p style="color: #666; font-size: 14px; margin-top: 15px;">
+                    💡 Haz clic en cualquier campo para copiarlo al portapapeles
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para copiar al portapapeles
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Crear notificación temporal
+                const notification = document.createElement('div');
+                notification.textContent = '¡Copiado!';
+                notification.className = 'notification';
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 2000);
+            });
+        }
+
+        function showSection(sectionName) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.menu-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Mostrar la sección seleccionada
+            const targetSection = document.getElementById(sectionName);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Actualizar los botones del menú
+            const menuOptions = document.querySelectorAll('.menu-option');
+            menuOptions.forEach(option => {
+                option.classList.remove('active');
+            });
+
+            // Activar el botón correspondiente
+            event.target.closest('.menu-option').classList.add('active');
+        }
+
+        // Efectos adicionales
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animación suave para las categorías
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.category').forEach(category => {
+                observer.observe(category);
+            });
+        });
+    </script>
